@@ -89,73 +89,6 @@ function redirectToLogin() {
 }
 
 // ===================================
-// FUNCIONES DE AUTENTICACIÓN
-// ===================================
-
-/**
- * Maneja el registro de usuario con email
- * @param {string} email - Email del usuario
- */
-async function handleEmailRegistration(email) {
-    if (!isValidEmail(email)) {
-        showNotification('Por favor ingresá un email válido', 'error');
-        return;
-    }
-
-    console.log('Registrando usuario con email:', email);
-    
-    try {
-        // TODO: Los programadores deben implementar la llamada real a la API
-        // const response = await apiRequest(CONFIG.API_ENDPOINTS.register, {
-        //     method: 'POST',
-        //     body: JSON.stringify({ email })
-        // });
-        
-        // Simulación temporal
-        showNotification('Registro exitoso! Revisa tu email para continuar.', 'success');
-        
-        // Opcional: Limpiar el formulario
-        document.getElementById('email').value = '';
-        
-    } catch (error) {
-        showNotification('Error al registrar. Por favor intenta nuevamente.', 'error');
-        console.error('Error en registro:', error);
-    }
-}
-
-/**
- * Maneja el login con Google
- */
-async function handleGoogleLogin() {
-    console.log('Iniciando login con Google...');
-    
-    try {
-        // TODO: Los programadores deben implementar la integración con Google OAuth
-        // Ejemplo básico de implementación:
-        // 
-        // 1. Redirigir a Google OAuth:
-        // window.location.href = 'YOUR_GOOGLE_OAUTH_URL';
-        //
-        // 2. O usar Google Sign-In SDK:
-        // const auth2 = await gapi.auth2.getAuthInstance();
-        // const googleUser = await auth2.signIn();
-        // const token = googleUser.getAuthResponse().id_token;
-        // 
-        // 3. Enviar el token al backend:
-        // const response = await apiRequest(CONFIG.API_ENDPOINTS.googleAuth, {
-        //     method: 'POST',
-        //     body: JSON.stringify({ token })
-        // });
-        
-        showNotification('Funcionalidad de Google login - Por implementar', 'info');
-        
-    } catch (error) {
-        showNotification('Error al iniciar sesión con Google', 'error');
-        console.error('Error en Google login:', error);
-    }
-}
-
-// ===================================
 // EVENT LISTENERS
 // ===================================
 
@@ -175,44 +108,10 @@ function initializeEventListeners() {
         btnHeroCreate.addEventListener('click', redirectToCreateClub);
     }
 
-    // Formulario de registro
-    const registrationForm = document.getElementById('registration-form');
-    if (registrationForm) {
-        registrationForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            handleEmailRegistration(email);
-        });
-    }
-
-    // Botón de registro directo
-    const btnRegister = document.getElementById('btn-register');
-    if (btnRegister) {
-        btnRegister.addEventListener('click', (e) => {
-            if (e.target.form) {
-                // Si está dentro de un form, el form manejará el submit
-                return;
-            }
-            // Si no está en un form, manejar manualmente
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            handleEmailRegistration(email);
-        });
-    }
-
-    // Botón de login con Google
-    const btnGoogleLogin = document.getElementById('btn-google-login');
-    if (btnGoogleLogin) {
-        btnGoogleLogin.addEventListener('click', handleGoogleLogin);
-    }
-
-    // Link de "Ya tengo cuenta - Ingresar"
-    const linkLogin = document.getElementById('link-login');
-    if (linkLogin) {
-        linkLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            redirectToLogin();
-        });
+    // Botón CTA final "Comenzá gratis"
+    const btnCtaFinal = document.getElementById('btn-cta-final');
+    if (btnCtaFinal) {
+        btnCtaFinal.addEventListener('click', redirectToCreateClub);
     }
 
     // Smooth scroll para navegación interna (si se agregan anclas)
@@ -351,8 +250,6 @@ if (document.readyState === 'loading') {
 window.SuscriLanding = {
     redirectToCreateClub,
     redirectToLogin,
-    handleEmailRegistration,
-    handleGoogleLogin,
     showNotification,
     isValidEmail
 };
@@ -366,62 +263,29 @@ INSTRUCCIONES PARA IMPLEMENTACIÓN:
 
 1. CREAR CLUB:
    - Funciones: redirectToCreateClub()
-   - Botones: #btn-header-create, #btn-hero-create
+   - Botones: #btn-header-create, #btn-hero-create, #btn-cta-final
    - Actualizar la URL de destino en la función
 
 2. LOGIN:
    - Función: redirectToLogin()
-   - Elemento: #link-login
    - Actualizar la URL de destino en la función
 
-3. REGISTRO CON EMAIL:
-   - Función: handleEmailRegistration(email)
-   - Formulario: #registration-form
-   - Campo: #email
-   - Botón: #btn-register
-   - Implementar llamada a API en CONFIG.API_ENDPOINTS.register
-
-4. LOGIN CON GOOGLE:
-   - Función: handleGoogleLogin()
-   - Botón: #btn-google-login
-   - Implementar Google OAuth según documentación:
-     https://developers.google.com/identity/sign-in/web
-
-5. NOTIFICACIONES:
+3. NOTIFICACIONES:
    - Función: showNotification(message, type)
    - Reemplazar el alert() con un sistema de toast/notifications más elegante
    - Sugerencia: usar librerías como toastify-js, notyf, o implementar custom
 
-6. API CONFIGURATION:
+4. API CONFIGURATION:
    - Actualizar CONFIG.API_ENDPOINTS con los endpoints reales
    - Agregar autenticación/headers necesarios en apiRequest()
 
-7. OPCIONAL - ANIMACIONES:
+5. OPCIONAL - ANIMACIONES:
    - Las funciones de animación están comentadas
    - Descomentar initializeParallax() en init() si se desea el efecto parallax
    - Agregar clases CSS para .animate-in si se usa scroll reveal
 
-8. TESTING:
+6. TESTING:
    - Todos los botones tienen console.log para debugging
    - Verificar que todos los IDs coincidan con el HTML
    - Testear flujos de error y success
-
-ESTRUCTURA DE RESPUESTAS ESPERADAS DE LA API:
-
-Registro:
-{
-  "success": true,
-  "message": "Usuario registrado exitosamente",
-  "data": {
-    "userId": "...",
-    "email": "..."
-  }
-}
-
-Error:
-{
-  "success": false,
-  "message": "Error descriptivo",
-  "errors": ["detalle 1", "detalle 2"]
-}
 */

@@ -1,0 +1,19 @@
+{
+  "name": "nueva-landing",
+  "version": "1.0.0",
+  "description": "## 📋 Descripción Landing page para Suscri, una SaaS que ayuda a crear clubes de beneficios para negocios. Implementada en HTML, CSS y JavaScript vanilla.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agus-franco/nueva-landing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agus-franco/nueva-landing/issues"
+  },
+  "homepage": "https://github.com/agus-franco/nueva-landing#readme"
+}
